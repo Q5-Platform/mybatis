@@ -16,16 +16,16 @@ import java.util.List;
  */
 public interface BaseMapper<T extends BaseEntity> {
 
-    @SelectProvider(type = SqlMapperProvider.class,method = "findAllSql")
+    @SelectProvider(type = SqlMapperProvider.class, method = "findAllSql")
     List<T> findAll(Class<? extends T> clazz);
 
-    @InsertProvider(type = SqlMapperProvider.class,method = "insertSql")
+    @InsertProvider(type = SqlMapperProvider.class, method = "insertSql")
     int insert(T t);
 
-    @UpdateProvider(type = SqlMapperProvider.class,method = "updateSql")
+    @UpdateProvider(type = SqlMapperProvider.class, method = "updateSql")
     int update(T t);
 
-    @UpdateProvider(type = SqlMapperProvider.class,method = "deleteByIdSql")
+    @UpdateProvider(type = SqlMapperProvider.class, method = "deleteByIdSql")
     int deleteById(T t);
 
 }

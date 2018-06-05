@@ -15,27 +15,28 @@ public class SqlMapperProvider<T extends BaseEntity> {
 
     private final static Logger logger = LoggerFactory.getLogger(SqlMapperProvider.class);
 
-    public String updateSql(T t){
-      String sql =new SQL().UPDATE(t.getTableName()).SET(t.getSetColumns()).WHERE(t.idWhere()).toString();
-      logger.debug("updateSql->{}",sql);
-      return sql;
+    public String updateSql(T t) {
+        String sql = new SQL().UPDATE(t.getTableName()).SET(t.getSetColumns()).WHERE(t.idWhere()).toString();
+        logger.debug("updateSql->{}", sql);
+        return sql;
     }
 
-    public final String insertSql(T t){
+    public final String insertSql(T t) {
         String sql = new SQL().INSERT_INTO(t.getTableName()).INTO_COLUMNS(t.getInsertColumns()).INTO_VALUES(t.getInsertValues()).toString();
-        logger.debug("insertSql->{}",sql);
+        logger.debug("insertSql->{}", sql);
         return sql;
     }
 
-    public final String findAllSql(Class<? extends BaseEntity> clazz){
+    public final String findAllSql(Class<? extends BaseEntity> clazz) {
         String sql = new SQL().SELECT("*").FROM(BaseEntity.getTableName(clazz)).toString();
-        logger.debug("findAllSql->{}",sql);
+        logger.debug("findAllSql->{}", sql);
         return sql;
     }
 
-    public final String deleteByIdSql(T t){
-        String sql = new SQL().DELETE_FROM(t.getTableName()).WHERE(t.idWhere()).toString();logger.debug("updatesql->{}",sql);
-        logger.debug("deleteByIdSql->{}",sql);
+    public final String deleteByIdSql(T t) {
+        String sql = new SQL().DELETE_FROM(t.getTableName()).WHERE(t.idWhere()).toString();
+        logger.debug("updatesql->{}", sql);
+        logger.debug("deleteByIdSql->{}", sql);
         return sql;
     }
 }

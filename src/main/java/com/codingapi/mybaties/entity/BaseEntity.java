@@ -36,17 +36,17 @@ public class BaseEntity implements Serializable {
         reloadProperty();
     }
 
-    public final static String getTableName(Class<?> clazz){
+    public final static String getTableName(Class<?> clazz) {
         Table table = clazz.getAnnotation(Table.class);
-        if(table!=null) {
+        if (table != null) {
             return table.name().toUpperCase();
-        }else{
+        } else {
             return clazz.getSimpleName().toUpperCase();
         }
     }
 
 
-    public String getTableName(){
+    public String getTableName() {
         return getTableName(getClass());
     }
 
@@ -54,7 +54,7 @@ public class BaseEntity implements Serializable {
         return idName;
     }
 
-    private void reloadProperty(){
+    private void reloadProperty() {
         PropertyDescriptor[] propertyDescriptors = null;
         try {
             propertyDescriptors = propertyDescriptors(getClass());
@@ -76,7 +76,7 @@ public class BaseEntity implements Serializable {
                         generatorName = propertyDescriptor.getName();
                     }
                     String columnName;
-                    if (column == null||StringUtils.isEmpty(column.name())) {
+                    if (column == null || StringUtils.isEmpty(column.name())) {
                         columnName = propertyToColumn(propertyDescriptor.getName());
                     } else {
                         columnName = column.name();
@@ -93,10 +93,10 @@ public class BaseEntity implements Serializable {
                 }
             }
 
-            if(idName==null){
-                throw new RuntimeException(getTableName()+" not exits @Id.");
+            if (idName == null) {
+                throw new RuntimeException(getTableName() + " not exits @Id.");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -128,12 +128,12 @@ public class BaseEntity implements Serializable {
     }
 
 
-    public String[] getInsertColumns(){
-        List<String> list =  new ArrayList<>();
-        for(int i=0;i<propertys.size();i++) {
+    public String[] getInsertColumns() {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < propertys.size(); i++) {
             PropertyDescriptor propertyDescriptor = propertys.get(i);
             String propertyName = propertyDescriptor.getName();
-            if(propertyName.equals(generatorName)){
+            if (propertyName.equals(generatorName)) {
                 continue;
             }
             list.add(columns.get(i));
@@ -142,31 +142,31 @@ public class BaseEntity implements Serializable {
     }
 
 
-    public String[] getInsertValues(){
-        List<String> list =  new ArrayList<>();
-        for(int i=0;i<propertys.size();i++) {
+    public String[] getInsertValues() {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < propertys.size(); i++) {
             PropertyDescriptor propertyDescriptor = propertys.get(i);
             String propertyName = propertyDescriptor.getName();
-            if(propertyName.equals(generatorName)){
+            if (propertyName.equals(generatorName)) {
                 continue;
             }
-            list.add(String.format("#{%s}",propertyName));
+            list.add(String.format("#{%s}", propertyName));
         }
         return list.toArray(new String[list.size()]);
     }
 
-    public String[] getSetColumns(){
-        List<String> list =  new ArrayList<>();
-        for(int i=0;i<propertys.size();i++){
-            PropertyDescriptor propertyDescriptor =  propertys.get(i);
+    public String[] getSetColumns() {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < propertys.size(); i++) {
+            PropertyDescriptor propertyDescriptor = propertys.get(i);
             String propertyName = propertyDescriptor.getName();
-            if(propertyName.equals(getIdName())){
+            if (propertyName.equals(getIdName())) {
                 continue;
             }
             try {
                 Object obj = propertyDescriptor.getReadMethod().invoke(this);
-                if(obj!=null){
-                    list.add(String.format("%s=#{%s}",propertyName,propertyName));
+                if (obj != null) {
+                    list.add(String.format("%s=#{%s}", propertyName, propertyName));
                 }
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
@@ -178,8 +178,8 @@ public class BaseEntity implements Serializable {
     }
 
 
-    public String idWhere(){
-        return String.format("%s=#{%s}",idName,idName);
+    public String idWhere() {
+        return String.format("%s=#{%s}", idName, idName);
     }
 
     public String getGeneratorName() {
