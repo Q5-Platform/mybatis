@@ -14,8 +14,8 @@ mybatis.configuration.use-generated-keys=true
 #若id字段是其他字段。见参考1
 
 
-#handler扫码的包路径 见参考2
-mybatis.type-handlers-package=com.example.demo.db.mapper.handler
+#handler扫码的包路径(多个用,分割 不支持*配置) 见参考2
+mybatis.type-handlers-package=com.example.demo.db.mapper.handler,com.example.demo.db.mapper.handler
 
 ```
 
