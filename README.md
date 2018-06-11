@@ -25,7 +25,7 @@ mybatis.type-handlers-package=com.example.demo.db.mapper.handler
 
 1. 每个数据库表类(entity)必须有@Table 和 @Id 注解且必须集成BaseEntity。
 
-引入如下包的。
+引入如下包的(当然本项目的pom下是有的)。
 
 ```$xslt
 
