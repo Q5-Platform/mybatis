@@ -16,25 +16,25 @@ public final class SqlMapperProvider {
     private final static Logger logger = LoggerFactory.getLogger(SqlMapperProvider.class);
 
     public final  <T extends BaseEntity> String updateSql(T t) {
-        String sql = new SQL().UPDATE(t.getTableName()).SET(t.getSetColumns()).WHERE(t.idWhere()).toString();
+        String sql = new SQL().UPDATE(t.loadTableName()).SET(t.loadSetColumns()).WHERE(t.idWhere()).toString();
         logger.debug("updateSql->{}", sql);
         return sql;
     }
 
     public final <T extends BaseEntity> String insertSql(T t) {
-        String sql = new SQL().INSERT_INTO(t.getTableName()).INTO_COLUMNS(t.getInsertColumns()).INTO_VALUES(t.getInsertValues()).toString();
+        String sql = new SQL().INSERT_INTO(t.loadTableName()).INTO_COLUMNS(t.loadInsertColumns()).INTO_VALUES(t.loadInsertValues()).toString();
         logger.debug("insertSql->{}", sql);
         return sql;
     }
 
     public final <T extends BaseEntity> String findAllSql(Class<? extends BaseEntity> clazz) {
-        String sql = new SQL().SELECT("*").FROM(BaseEntity.getTableName(clazz)).toString();
+        String sql = new SQL().SELECT("*").FROM(BaseEntity.loadTableName(clazz)).toString();
         logger.debug("findAllSql->{}", sql);
         return sql;
     }
 
     public final <T extends BaseEntity> String deleteByIdSql(T t) {
-        String sql = new SQL().DELETE_FROM(t.getTableName()).WHERE(t.idWhere()).toString();
+        String sql = new SQL().DELETE_FROM(t.loadTableName()).WHERE(t.idWhere()).toString();
         logger.debug("deleteByIdSql->{}", sql);
         return sql;
     }

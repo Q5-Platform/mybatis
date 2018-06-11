@@ -36,7 +36,7 @@ public class BaseEntity implements Serializable {
         reloadProperty();
     }
 
-    public final static String getTableName(Class<?> clazz) {
+    public final static String loadTableName(Class<?> clazz) {
         Table table = clazz.getAnnotation(Table.class);
         if (table != null) {
             return table.name().toUpperCase();
@@ -46,11 +46,11 @@ public class BaseEntity implements Serializable {
     }
 
 
-    public String getTableName() {
-        return getTableName(getClass());
+    public String loadTableName() {
+        return loadTableName(getClass());
     }
 
-    public String getIdName() {
+    public String loadIdName() {
         return idName;
     }
 
@@ -94,7 +94,7 @@ public class BaseEntity implements Serializable {
             }
 
             if (idName == null) {
-                throw new RuntimeException(getTableName() + " not exits @Id.");
+                throw new RuntimeException(loadTableName() + " not exits @Id.");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -128,7 +128,7 @@ public class BaseEntity implements Serializable {
     }
 
 
-    public String[] getInsertColumns() {
+    public String[] loadInsertColumns() {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < propertys.size(); i++) {
             PropertyDescriptor propertyDescriptor = propertys.get(i);
@@ -142,7 +142,7 @@ public class BaseEntity implements Serializable {
     }
 
 
-    public String[] getInsertValues() {
+    public String[] loadInsertValues() {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < propertys.size(); i++) {
             PropertyDescriptor propertyDescriptor = propertys.get(i);
@@ -155,12 +155,12 @@ public class BaseEntity implements Serializable {
         return list.toArray(new String[list.size()]);
     }
 
-    public String[] getSetColumns() {
+    public String[] loadSetColumns() {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < propertys.size(); i++) {
             PropertyDescriptor propertyDescriptor = propertys.get(i);
             String propertyName = propertyDescriptor.getName();
-            if (propertyName.equals(getIdName())) {
+            if (propertyName.equals(loadIdName())) {
                 continue;
             }
             try {
@@ -182,15 +182,15 @@ public class BaseEntity implements Serializable {
         return String.format("%s=#{%s}", idName, idName);
     }
 
-    public String getGeneratorName() {
+    public String loadGeneratorName() {
         return generatorName;
     }
 
-    public List<String> getColumns() {
+    public List<String> loadColumns() {
         return columns;
     }
 
-    public List<PropertyDescriptor> getPropertys() {
+    public List<PropertyDescriptor> loadPropertys() {
         return propertys;
     }
 }
