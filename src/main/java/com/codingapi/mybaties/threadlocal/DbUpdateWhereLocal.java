@@ -5,16 +5,16 @@ package com.codingapi.mybaties.threadlocal;
  * @date 2018/6/11
  * @description
  */
-public class DbMethodLocal {
+public class DbUpdateWhereLocal {
 
 
-    private final static ThreadLocal<DbMethodLocal> currentLocal = new InheritableThreadLocal<DbMethodLocal>();
+    private final static ThreadLocal<DbUpdateWhereLocal> currentLocal = new InheritableThreadLocal<DbUpdateWhereLocal>();
 
-    public static DbMethodLocal current() {
+    public static DbUpdateWhereLocal current() {
         return currentLocal.get();
     }
 
-    public static void setCurrent(DbMethodLocal current) {
+    public static void setCurrent(DbUpdateWhereLocal current) {
         currentLocal.set(current);
     }
 

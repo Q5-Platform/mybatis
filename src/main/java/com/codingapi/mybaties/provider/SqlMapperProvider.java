@@ -1,7 +1,7 @@
 package com.codingapi.mybaties.provider;
 
 import com.codingapi.mybaties.entity.BaseEntity;
-import com.codingapi.mybaties.threadlocal.DbMethodLocal;
+import com.codingapi.mybaties.threadlocal.DbUpdateWhereLocal;
 import org.apache.ibatis.jdbc.SQL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public final class SqlMapperProvider {
     }
 
     public final  <T extends BaseEntity> String updateWhere(T t) {
-        DbMethodLocal methodLocal = DbMethodLocal.current();
+        DbUpdateWhereLocal methodLocal = DbUpdateWhereLocal.current();
         String sql;
         if(methodLocal!=null){
              sql = new SQL().UPDATE(t.loadTableName()).SET(t.loadSetColumns()).WHERE(methodLocal.getWhereSql()).toString();

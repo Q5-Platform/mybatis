@@ -1,5 +1,6 @@
 package com.codingapi.mybaties.entity;
 
+import com.codingapi.mybaties.threadlocal.DbUpdateWhereLocal;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
@@ -192,5 +193,16 @@ public class BaseEntity implements Serializable {
 
     public List<PropertyDescriptor> loadPropertys() {
         return propertys;
+    }
+
+
+    /**
+     * 设置当前执行的where sql  例如 state = #{state}
+     * @param sql
+     */
+    public void currentWhereSql(String sql){
+        DbUpdateWhereLocal dbMethodLocal = new DbUpdateWhereLocal();
+        dbMethodLocal.setWhereSql(sql);
+        DbUpdateWhereLocal.setCurrent(dbMethodLocal);
     }
 }
